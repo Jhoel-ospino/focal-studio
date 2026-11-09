@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Focal CNC Screens Layout Schema",
+  "description": "Schema definition for Focal CNC 3.5-inch 480x320 touch display UI screens and components",
+  "type": "object",
+  "required": ["version", "display", "screens"],
+  "properties": {
+    "version": { "type": "string" },
+    "display": {
+      "type": "object",
+      "required": ["width", "height", "orientation"],
+      "properties": {
+        "width": { "type": "integer", "const": 480 },
+        "height": { "type": "integer", "const": 320 },
+        "orientation": { "type": "string", "enum": ["landscape", "portrait"] }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "screen_enum", "title", "show_back", "components"],
+        "properties": {
+          "id": { "type": "string" },
+          "screen_enum": { "type": "string" },
+          "title": { "type": "string" },
+          "show_back": { "type": "boolean" },
+          "components": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/component" }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "component": {
+      "type": "object",
+      "required": ["id", "type", "x", "y", "width", "height", "text", "icon", "style", "color", "callback_id"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["card", "button", "label", "slider", "switch", "dro", "bed", "bar", "textarea", "keyboard", "modal"]
+        },
+        "x": { "type": "integer" },
+        "y": { "type": "integer" },
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "text": { "type": ["string", "null"] },
+        "icon": { "type": ["string", "null"] },
+        "style": { "type": ["string", "null"] },
+        "color": { "type": ["string", "null"] },
+        "callback_id": { "type": ["string", "null"] },
+        "user_data": { "type": ["string", "number", "boolean", "null"] },
+        "ext_click_area": { "type": ["integer", "null"] },
+        "radius": { "type": ["string", "integer", "null"] },
+        "min": { "type": ["integer", "null"] },
+        "max": { "type": ["integer", "null"] },
+        "value": { "type": ["integer", "null"] },
+        "checked": { "type": ["boolean", "null"] },
+        "placeholder": { "type": ["string", "null"] },
+        "password_mode": { "type": ["boolean", "null"] },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/component" }
+        }
+      }
+    }
+  }
+}
